@@ -10,15 +10,15 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.polypote.sentenceoftheday.backend.receivers.AlarmReceiver
 import com.polypote.sentenceoftheday.backend.receivers.DateChangeListener
-import com.polypote.sentenceoftheday.backend.receivers.DateChangedReceiver
 import com.polypote.sentenceoftheday.databinding.FragmentSentenceBinding
 
 class SentenceFragment : Fragment(), DateChangeListener {
     private var _binding: FragmentSentenceBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var dateChangedReceiver : DateChangedReceiver
+    private lateinit var hourSetByUserReachedReceiver : AlarmReceiver
 
 
     override fun onCreateView(
@@ -36,9 +36,9 @@ class SentenceFragment : Fragment(), DateChangeListener {
         sentenceViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
-        dateChangedReceiver = DateChangedReceiver(this)
+        hourSetByUserReachedReceiver = AlarmReceiver()
         IntentFilter(Intent.ACTION_DATE_CHANGED).also {
-            LocalBroadcastManager.getInstance(requireContext()).registerReceiver(dateChangedReceiver, it)
+            LocalBroadcastManager.getInstance(requireContext()).registerReceiver(hourSetByUserReachedReceiver, it)
         }
         return root
     }
@@ -46,7 +46,7 @@ class SentenceFragment : Fragment(), DateChangeListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(dateChangedReceiver)
+        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(hourSetByUserReachedReceiver)
     }
 
     override fun onDateChanged(message: String) {

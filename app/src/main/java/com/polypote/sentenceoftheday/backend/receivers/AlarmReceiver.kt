@@ -3,10 +3,12 @@ package com.polypote.sentenceoftheday.backend.receivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.polypote.sentenceoftheday.backend.utils.NotificationUtils
 
-class DateChangedReceiver(private val listener: DateChangeListener) : BroadcastReceiver() {
+
+class AlarmReceiver() : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        val message = "mockString"
-        listener.onDateChanged(message)
+        val notificationUtils = NotificationUtils(context!!)
+        notificationUtils.launchNotification()
     }
 }
