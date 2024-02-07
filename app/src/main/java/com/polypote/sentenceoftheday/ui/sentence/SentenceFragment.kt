@@ -50,6 +50,6 @@ class SentenceFragment : Fragment(), DateChangeListener {
     }
 
     override fun onDateChanged(message: String) {
-        TODO("Update UI with the message")
+        binding.textSentence.text = message
     }
 }
