@@ -1,12 +1,16 @@
 package com.polypote.sentenceoftheday.ui.sentence
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.polypote.sentenceoftheday.backend.database.QuoteService
 
-class SentenceViewModel : ViewModel() {
+class SentenceViewModel(application : Application) : AndroidViewModel(application) {
+    private val quoteService = QuoteService(application.applicationContext)
+
     private val _text = MutableLiveData<String>().apply {
-        value = "\"La vague va passer, et va fermer tous les PC\"\nSamir Aknine"
+        value = quoteService.fetchForTheCurrentDay().body
     }
     val text: LiveData<String> = _text
 }

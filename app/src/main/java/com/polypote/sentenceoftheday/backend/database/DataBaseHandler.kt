@@ -51,15 +51,11 @@ class DataBaseHandler(val context : Context) : SQLiteOpenHelper(context, DB_NAME
         return contentValue
     }
 
-    fun getColumnsNamesAsArray() = arrayOf(BODY, AUTHOR)
-
-    //Defines constants
     companion object {
         const val TABLE_NAME = "Citations"
-        //Columns
         private const val ID = "id"
-        private const val BODY = "body"
-        private const val AUTHOR = "author"
+        const val BODY = "body"
+        const val AUTHOR = "author"
 
         const val DB_NAME = "EMBEDDED_CITATION_DB"
         const val DB_VERSION = 1
