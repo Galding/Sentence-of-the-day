@@ -9,26 +9,42 @@ import java.io.InputStreamReader
 
 class DataBaseHandler(val context : Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
 
-    override fun onCreate(db: SQLiteDatabase?) {
-        db?.execSQL(CREATE_TABLE)
-        val inputStream = context.assets.open("DB_INSERT.sql")
-        val reader = BufferedReader(InputStreamReader(inputStream))
+    override fun onCreate(db: SQLiteDatabase) {
 
-        var line : String? = reader.readLine()
-        while (line != null){
-            db?.execSQL(line)
-            line = reader.readLine()
+        val quotesInputStream = context.assets.open("quotes.csv")
+        val quotesReader = BufferedReader(InputStreamReader(quotesInputStream))
+        var line: String? = quotesReader.readLine()
+
+        db.beginTransaction()
+
+        try {
+            db.execSQL(CREATE_TABLE)
+            while (line != null) {
+                val parts = line.split(";")
+                if (parts.size == 2) {
+                    val author = parts[0]
+                    val quote = parts[1]
+                    val contentValues = getContentValues(quote, author)
+                    db.insert(TABLE_NAME, null, contentValues)
+                }
+                line = quotesReader.readLine()
+            }
+            db.setTransactionSuccessful()
+        } catch (e: Exception) {
+            // Handle any exceptions that occur during the transaction
+        } finally {
+            db.endTransaction()
+            quotesReader.close()
+            quotesInputStream.close()
         }
-        reader.close()
-        inputStream.close()
     }
 
-    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        db?.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
         onCreate(db)
     }
 
-    fun getContentValues(citation : String, author : String) : ContentValues{
+    fun getContentValues(citation : String, author : String) : ContentValues {
         val contentValue = ContentValues()
         contentValue.put(BODY, citation)
         contentValue.put(AUTHOR, author)
