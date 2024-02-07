@@ -14,11 +14,9 @@ class AlarmReceiver(private val dateChangeListener: DateChangeListener) : Broadc
 
         val dbManagerService = DBManagerService(context)
         val cursor = dbManagerService.fetchForTheCurrentDay()
-
-        val bodyPosition = cursor.getColumnIndex("body")
-        val message = cursor.getString(bodyPosition)
-
-        dateChangeListener.onDateChanged(message)
+        val body = cursor.getString(cursor.getColumnIndex("body"))
+        val author = cursor.getString(cursor.getColumnIndex("author"))
+        dateChangeListener.onDateChanged("$body : $author")
         cursor.close()
     }
 }
