@@ -36,7 +36,7 @@ class SentenceFragment : Fragment(), DateChangeListener {
         sentenceViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
-        hourSetByUserReachedReceiver = AlarmReceiver()
+        hourSetByUserReachedReceiver = AlarmReceiver(this)
         IntentFilter(Intent.ACTION_DATE_CHANGED).also {
             LocalBroadcastManager.getInstance(requireContext()).registerReceiver(hourSetByUserReachedReceiver, it)
         }

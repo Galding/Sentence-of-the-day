@@ -10,6 +10,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.polypote.sentenceoftheday.MainActivity
+import com.polypote.sentenceoftheday.R
 
 class NotificationUtils(private var _context: Context) {
     private lateinit var _notificationBuilder: NotificationCompat.Builder
@@ -60,7 +61,7 @@ class NotificationUtils(private var _context: Context) {
          * but is ignored by older versions.
          */
         _notificationBuilder = NotificationCompat.Builder(_context, CHANNEL_ID)
-            //.setSmallIcon(R.drawable.notification_icon)
+            .setSmallIcon(R.drawable.ic_notifications_black_24dp)
             .setContentTitle("Notification Title")
             .setContentText("Notification Body Text, Notification Body Text")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
