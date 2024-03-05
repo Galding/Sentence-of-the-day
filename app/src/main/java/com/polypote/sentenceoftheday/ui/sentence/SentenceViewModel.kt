@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.polypote.sentenceoftheday.backend.database.QuoteService
+import com.polypote.sentenceoftheday.backend.service.QuoteService
 
 class SentenceViewModel(application : Application) : AndroidViewModel(application) {
     private val quoteService = QuoteService(application.applicationContext)
@@ -13,4 +13,5 @@ class SentenceViewModel(application : Application) : AndroidViewModel(applicatio
         value = quoteService.fetchForTheCurrentDay().body
     }
     val text: LiveData<String> = _text
+
 }

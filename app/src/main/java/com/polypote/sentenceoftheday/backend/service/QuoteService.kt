@@ -1,8 +1,9 @@
-package com.polypote.sentenceoftheday.backend.database
+package com.polypote.sentenceoftheday.backend.service
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import com.polypote.sentenceoftheday.backend.database.DataBaseHandler
 import com.polypote.sentenceoftheday.models.Quote
 import java.util.Calendar
 
@@ -16,7 +17,7 @@ class QuoteService(val context : Context) : AutoCloseable {
         database.insert(DataBaseHandler.TABLE_NAME, null, dbHandler.getContentValues(quote.body, quote.author))
     }
 
-    @SuppressLint("Recycle")
+    @SuppressLint("Recycle", "Range")
     fun fetchForTheCurrentDay() : Quote {
         val cursor = database.rawQuery("SELECT body, author FROM ${DataBaseHandler.TABLE_NAME} WHERE id = ?", arrayOf(Calendar.getInstance().get(Calendar.DAY_OF_YEAR).toString()))
         if (cursor.count == 0) {
@@ -24,6 +25,8 @@ class QuoteService(val context : Context) : AutoCloseable {
             return Quote("No quote for today", "Unknown")
         }
         cursor.moveToFirst()
-        return Quote(cursor.getString(cursor.getColumnIndex(DataBaseHandler.BODY)), cursor.getString(cursor.getColumnIndex(DataBaseHandler.AUTHOR)))
+        return Quote(cursor.getString(cursor.getColumnIndex(DataBaseHandler.BODY)), cursor.getString(cursor.getColumnIndex(
+            DataBaseHandler.AUTHOR
+        )))
     }
 }
