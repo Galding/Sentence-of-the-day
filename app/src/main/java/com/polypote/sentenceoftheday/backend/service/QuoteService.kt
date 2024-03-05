@@ -1,4 +1,4 @@
-package com.polypote.sentenceoftheday.backend.service
+package com.polypote.sentenceoftheday.backend.database
 
 import android.annotation.SuppressLint
 import android.content.Context

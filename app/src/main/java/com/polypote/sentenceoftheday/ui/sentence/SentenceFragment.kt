@@ -1,6 +1,10 @@
 package com.polypote.sentenceoftheday.ui.sentence
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.BackgroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,11 +27,28 @@ class SentenceFragment : Fragment() {
         _binding = FragmentSentenceBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textSentence
-        sentenceViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        val quoteTextView: TextView = binding.textQuote
+        sentenceViewModel.quote.observe(viewLifecycleOwner) {
+            quoteTextView.text = addBackground(it)
         }
+
+        val authorTextView: TextView = binding.textAuthor
+        sentenceViewModel.author.observe(viewLifecycleOwner) {
+            authorTextView.text = addBackground(it)
+        }
+
         return root
+    }
+
+    private fun addBackground(text: String) : SpannableString {
+        val spannable = SpannableString(text)
+        spannable.setSpan(
+            BackgroundColorSpan(Color.parseColor("#CC808080")),
+            0,
+            spannable.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        return spannable
     }
 
     override fun onDestroyView() {

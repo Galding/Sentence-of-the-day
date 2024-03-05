@@ -17,7 +17,7 @@ class AlarmUtils(context: Context) {
         _alarmIntent = Intent(_context, AlarmReceiver::class.java).let { mIntent ->
             // if you want more than one notification use different requestCode
             // every notification need different requestCode
-            PendingIntent.getBroadcast(_context, 100, mIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getBroadcast(_context, 100, mIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         }
     }
 
