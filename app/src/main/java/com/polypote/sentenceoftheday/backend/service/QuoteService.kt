@@ -25,8 +25,8 @@ class QuoteService(val context : Context) : AutoCloseable {
             return Quote("No quote for today", "Unknown")
         }
         cursor.moveToFirst()
-        return Quote(cursor.getString(cursor.getColumnIndex(DataBaseHandler.BODY)), cursor.getString(cursor.getColumnIndex(
-            DataBaseHandler.AUTHOR
+        return Quote(cursor.getString(cursor.getColumnIndex(DataBaseHandler.AUTHOR)), cursor.getString(cursor.getColumnIndex(
+            DataBaseHandler.BODY
         )))
     }
 }
