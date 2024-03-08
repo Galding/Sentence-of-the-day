@@ -4,6 +4,7 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Spannable
@@ -37,15 +38,19 @@ class SentenceFragment : Fragment() {
 
         _binding = FragmentSentenceBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        val font = Typeface.createFromAsset(context?.assets, "EBGaramond.ttf")
         val quoteTextView: TextView = binding.textQuote
         sentenceViewModel.quote.observe(viewLifecycleOwner) {
             quoteTextView.text = addBackground(it)
+            quoteTextView.typeface = font
+            quoteTextView.textSize = 40.0F
         }
 
         val authorTextView: TextView = binding.textAuthor
         sentenceViewModel.author.observe(viewLifecycleOwner) {
             authorTextView.text = addBackground(it)
+            authorTextView.typeface = font
+            quoteTextView.textSize = 34.0F
         }
 
         val background : ImageView = binding.image
@@ -91,7 +96,10 @@ class SentenceFragment : Fragment() {
             // Decode bitmap with inSampleSize set
             inJustDecodeBounds = false
 
-            BitmapFactory.decodeFile(file)
+            val options = BitmapFactory.Options()
+            options.inSampleSize = inSampleSize
+
+            BitmapFactory.decodeFile(file, options)
         }
     }
     private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
