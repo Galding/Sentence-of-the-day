@@ -96,10 +96,7 @@ class SentenceFragment : Fragment() {
             // Decode bitmap with inSampleSize set
             inJustDecodeBounds = false
 
-            val options = BitmapFactory.Options()
-            options.inSampleSize = inSampleSize
-
-            BitmapFactory.decodeFile(file, options)
+            BitmapFactory.decodeFile(file)
         }
     }
     private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
