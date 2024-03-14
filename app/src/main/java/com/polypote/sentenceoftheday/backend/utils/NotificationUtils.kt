@@ -62,8 +62,8 @@ class NotificationUtils(private var _context: Context) {
          */
         _notificationBuilder = NotificationCompat.Builder(_context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notifications_black_24dp)
-            .setContentTitle("Notification Title")
-            .setContentText("Notification Body Text, Notification Body Text")
+            .setContentTitle("Inspirez-vous")
+            .setContentText("La citation du jour est disponible")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             // Set the intent that will fire when the user taps the notification
             .setContentIntent(pendingIntent)
