@@ -1,11 +1,9 @@
 package com.polypote.sentenceoftheday.ui.sentence
 
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -16,14 +14,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.polypote.sentenceoftheday.R
 import com.polypote.sentenceoftheday.databinding.FragmentSentenceBinding
-import java.io.File
 
 class SentenceFragment : Fragment() {
     private var _binding: FragmentSentenceBinding? = null
